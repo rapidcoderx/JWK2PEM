@@ -39,3 +39,4 @@ build/
 /.idea/
 
 dependency-reduced-pom.xml
+public_key.pem
