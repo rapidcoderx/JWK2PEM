@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment
+spec:
+  selector:
+    matchLabels:
+      app: my-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: my-app
+          image: my-image
+          env:
+            - name: KID
+              valueFrom:
+                secretKeyRef:
+                  name: my-secret
+                  key: KID
+            - name: OKTA_DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  name: my-secret
+                  key: OKTA_DOMAIN
+            - name: ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  name: my-secret
+                  key: ENDPOINT
