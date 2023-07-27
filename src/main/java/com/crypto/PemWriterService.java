@@ -21,7 +21,8 @@ public class PemWriterService {
 
             // read and print the content of the PEM file
             List<String> lines = Files.readAllLines(path);
-            String content = String.join("\n", lines);
+            String content;
+            content = "\n" + String.join("\n", lines);
             logger.log(Level.INFO, content);
         } catch (Exception e) {
             throw new PemFileWriteException("Failed to write PEM file", e);
