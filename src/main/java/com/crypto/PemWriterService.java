@@ -14,13 +14,15 @@ public class PemWriterService {
         try {
             // write the RSA public key to a PEM file
             PemObject pemObject = new PemObject("PUBLIC KEY", rsaKey.toRSAPublicKey().getEncoded());
-            try (PemWriter pemWriter = new PemWriter(new OutputStreamWriter(Files.newOutputStream(Paths.get(pemFilePath))))) {
+            Path path = Paths.get(pemFilePath);
+            try (PemWriter pemWriter = new PemWriter(new OutputStreamWriter(Files.newOutputStream(path)))) {
                 pemWriter.writeObject(pemObject);
             }
 
             // read and print the content of the PEM file
-            List<String> lines = Files.readAllLines(Paths.get(pemFilePath));
-            lines.forEach(line -> logger.log(Level.INFO, line));
+            List<String> lines = Files.readAllLines(path);
+            String content = String.join("\n", lines);
+            logger.log(Level.INFO, content);
         } catch (Exception e) {
             throw new PemFileWriteException("Failed to write PEM file", e);
         }
